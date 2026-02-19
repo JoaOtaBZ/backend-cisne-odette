@@ -925,8 +925,9 @@ app.post("/schools/:schoolId/users/:userId/reset-password", requireAuth, require
 
 /* ================== START ================== */
 
-const port = Number(process.env.PORT) || 4000;
 
-app.listen(port, () => {
-  console.log(`API running on http://localhost:${port}`);
+const PORT = Number(process.env.PORT) || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`API rodando na porta ${PORT}`);
 });
