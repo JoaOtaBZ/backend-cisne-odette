@@ -29,11 +29,15 @@ if (!process.env.JWT_SECRET) {
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(
-  cors({
-    origin: process.env.WEB_ORIGIN || "http://localhost:3000",
-  })
-);
+app.use(cors({
+  origin: (origin, cb) => cb(null, true),
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+app.options("*", cors());
+
 app.use(express.json());
 
 /* ================== HELPERS ================== */
