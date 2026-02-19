@@ -10,6 +10,7 @@
 
 import dotenv from "dotenv";
 dotenv.config();
+console.log("SERVER VERSION: 2026-02-19 - FIX OPTIONS REGEX");
 
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
