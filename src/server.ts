@@ -30,14 +30,30 @@ if (!process.env.JWT_SECRET) {
 const app = express();
 const prisma = new PrismaClient();
 
+const allowedOrigins = [
+  process.env.WEB_ORIGIN,
+  "http://localhost:3000"
+].filter(Boolean) as string[];
+
 app.use(cors({
-  origin: (origin, cb) => cb(null, true),
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return cb(null, true);
+    }
+
+    return cb(new Error(`CORS bloqueado para origin: ${origin}`));
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.options(/.*/, cors());
+
+app.use(express.json());
+
 
 app.use(express.json());
 
