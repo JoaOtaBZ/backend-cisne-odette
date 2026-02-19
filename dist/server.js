@@ -29,8 +29,12 @@ if (!process.env.JWT_SECRET) {
 const app = (0, express_1.default)();
 const prisma = new client_1.PrismaClient();
 app.use((0, cors_1.default)({
-    origin: process.env.WEB_ORIGIN || "http://localhost:3000",
+    origin: (origin, cb) => cb(null, true),
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
+app.options(/.*/, (0, cors_1.default)());
 app.use(express_1.default.json());
 /* ================== HELPERS ================== */
 function paramStr(value) {
@@ -768,7 +772,8 @@ app.post("/schools/:schoolId/users/:userId/reset-password", requireAuth, require
     }
 });
 /* ================== START ================== */
-const port = Number(process.env.PORT) || 4000;
-app.listen(port, () => {
-    console.log(`API running on http://localhost:${port}`);
+const PORT = Number(process.env.PORT) || 3000;
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`API rodando na porta ${PORT}`);
 });
+//# sourceMappingURL=server.js.map

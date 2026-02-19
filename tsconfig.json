@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-
-    "target": "ES2020",
-    "module": "CommonJS",
-
+    "rootDir": "./src",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
+    "module": "nodenext",
+    "target": "esnext",
+    "sourceMap": true,
     "strict": true,
     "skipLibCheck": true
-  },
-  "include": ["src/**/*.ts"]
+  }
 }
